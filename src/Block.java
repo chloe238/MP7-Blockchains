@@ -48,7 +48,7 @@ public class Block {
   }
 
   public String toString() {
-    return "";
+    return "Block " + blockNum + "(Amount: " + amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", Hash: " + thisHash + " )";
   }
 
 
