@@ -5,11 +5,18 @@ import java.util.Scanner;
 public class BlockChainDriver {
   public static void main(String[] args) throws NoSuchAlgorithmException {
     if (args.length != 1){
-      System.err.println("Invalid number of command line argument");
+      System.err.println("Invalid number of command line arguments.");
       System.exit(1);
     } 
+    int initAmount = 0;
+    try{
+      initAmount = Integer.valueOf(args[0]);
+    } catch (Exception e) {
+      System.err.println("Please enter a valid integer for the starting amount.");
+      System.exit(1);
+    }
 
-    BlockChain chain = new BlockChain(Integer.valueOf(args[0])) ;
+    BlockChain chain = new BlockChain(initAmount) ;
 
     Scanner input = new Scanner(System.in);
     PrintWriter pen = new PrintWriter(System.out, true);
@@ -18,22 +25,22 @@ public class BlockChainDriver {
     
 
     while (!command.equals("quit")){
-      pen.print(chain.toString());
-      pen.println("Please enter your command:");
+      pen.println(chain.toString()+ "\n");
+      pen.println("Please enter your command: ");
       command = input.nextLine();
 
       switch (command) {
         case "mine":
-          pen.println("Amount transferred?");
-          int amountMine = input.nextInt();
+          pen.println("Amount transferred? ");
+          int amountMine = Integer.valueOf(input.nextLine());
           Block tempMine = chain.mine(amountMine);
           pen.println("Amount = " + amountMine + ", nonce = " + tempMine.getNonce());
           break;
         case "append":
           pen.println("Amount transferred?");
-          int amountAppend = input.nextInt();
+          int amountAppend = Integer.valueOf(input.nextLine());
           pen.println("Nonce?");
-          long nonce = input.nextLong();
+          long nonce = Long.valueOf(input.nextLine());
           Block tempAppend = new Block(chain.getSize(), amountAppend, chain.getHash(), nonce);
           try {
             chain.append(tempAppend);
@@ -66,7 +73,10 @@ public class BlockChainDriver {
           break;
         case "quit":
           break;
+        default:
+          pen.println("Invalid command. Type \"help\" for a list of commands.");
       } //switch
+      pen.println();
     } //while
 
     if (input != null){

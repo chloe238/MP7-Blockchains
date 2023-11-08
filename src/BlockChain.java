@@ -58,11 +58,12 @@ public class BlockChain{
       tmp = tmp.next;
     }
     return (sum > 0);
+    //not correct. should probably compare each pair of transactions instead of total value
   }
 
   public void printBalances(){
     PrintWriter pen = new PrintWriter(System.out, true);
-    Node tmp = this.first;
+    Node tmp = this.first.next;
     int alexis = this.first.data.amount;
     int blake = 0;
     while(tmp != null){

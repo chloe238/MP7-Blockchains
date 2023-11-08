@@ -15,7 +15,6 @@ public class Block {
     this.amount = amount;
     this.prevHash = prevHash;
     this.nonce = calculateNonce();
-    this.thisHash = new Hash(calculateHash(num, amount, prevHash, nonce));
   }
 
   public Block(int num, int amount, Hash prevHash, long nonce) throws NoSuchAlgorithmException {
@@ -24,7 +23,6 @@ public class Block {
     this.prevHash = prevHash;
     this.nonce = nonce;
     this.thisHash = new Hash(calculateHash(num, amount, prevHash, nonce));
-
   }
 
   public int getNum() {
@@ -48,7 +46,7 @@ public class Block {
   }
 
   public String toString() {
-    return "Block " + blockNum + "(Amount: " + amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", Hash: " + thisHash + " )";
+    return "Block " + blockNum + " (Amount: " + amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", Hash: " + thisHash + " )";
   }
 
 
@@ -57,26 +55,28 @@ public class Block {
 
   public static byte[] calculateHash(Integer num, Integer amount, Hash prevHash, long nonce) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance("sha-256");
-    md.update(num.byteValue());
-    md.update(amount.byteValue());
+    md.reset();
+    md.update(ByteBuffer.allocate(Integer.BYTES).putInt(num).array());
+    md.update(ByteBuffer.allocate(Integer.BYTES).putInt(amount).array());
 
     if (prevHash != null) {
-      md.update(prevHash.getData());
+      md.update(ByteBuffer.allocate(prevHash.getData().length).put(prevHash.getData()).array());
     }
-    md.update(ByteBuffer.allocate(4).putLong(nonce).array());
+    md.update(ByteBuffer.allocate(Long.BYTES).putLong(nonce).array());
     byte[] hash = md.digest();
     return hash;
   } // calculateHash(String)
 
   private long calculateNonce() throws NoSuchAlgorithmException{
     byte[] data;
-    long test = 0;
+    long test = -1;
     Hash hash;
-    do {      
+    do {  
+      test++;    
       data = calculateHash(this.blockNum, this.amount, this.prevHash, test);
-      hash = new Hash(data);
-      test++;
+      hash = new Hash(data); 
     } while(!hash.isValid());
+    this.thisHash = hash;
     return test;
   }
 } // Block
