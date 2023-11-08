@@ -13,7 +13,7 @@ public class BlockChain{
   }
   
   public Block mine(int amount) throws NoSuchAlgorithmException {  
-    Block result = new Block(this.last.data.getNum() + 1, amount, this.last.data.getPrevHash());    
+    Block result = new Block(this.last.data.getNum() + 1, amount, this.last.data.getHash());    
     Node block = new Node(result, null);
     this.last.next = block;
     this.last = this.last.next;
@@ -55,10 +55,12 @@ public class BlockChain{
     int sum = 0;
     while(tmp != null){
       sum += tmp.data.amount;
+      if (sum > this.first.data.getAmount() || sum < 0){
+        return false;
+      }
       tmp = tmp.next;
     }
-    return (sum > 0);
-    //not correct. should probably compare each pair of transactions instead of total value
+    return true;
   }
 
   public void printBalances(){

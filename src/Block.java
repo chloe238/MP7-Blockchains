@@ -49,10 +49,6 @@ public class Block {
     return "Block " + blockNum + " (Amount: " + amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", Hash: " + thisHash + " )";
   }
 
-
-
-
-
   public static byte[] calculateHash(Integer num, Integer amount, Hash prevHash, long nonce) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance("sha-256");
     md.reset();
