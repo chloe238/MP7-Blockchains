@@ -25,7 +25,7 @@ public class BlockChainDriver {
     
 
     while (!command.equals("quit")){
-      pen.println(chain.toString()+ "\n");
+      pen.println(chain.toString());
       pen.println("Please enter your command: ");
       command = input.nextLine();
 
@@ -63,13 +63,13 @@ public class BlockChainDriver {
           break;
         case "help":
           pen.print("Valid commands:\n" +
-                    "mine: discovers the nonce for a given transaction\n" +
-                    "append: appends a new block onto the end of the chain\n" +
-                    "remove: removes the last block from the end of the chain\n" +
-                    "check: checks that the block chain is valid\n" +
-                    "report: reports the balances of Alexis and Blake\n" +
-                    "help: prints this list of commands\n" +
-                    "quit: quits the program\n");
+                    "\tmine: discovers the nonce for a given transaction\n" +
+                    "\tappend: appends a new block onto the end of the chain\n" +
+                    "\tremove: removes the last block from the end of the chain\n" +
+                    "\tcheck: checks that the block chain is valid\n" +
+                    "\treport: reports the balances of Alexis and Blake\n" +
+                    "\thelp: prints this list of commands\n" +
+                    "\tquit: quits the program\n");
           break;
         case "quit":
           break;
