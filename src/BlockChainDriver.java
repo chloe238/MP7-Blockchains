@@ -31,7 +31,7 @@ public class BlockChainDriver {
 
       switch (command) {
         case "mine":
-          pen.println("Amount transferred? ");
+          pen.println("Amount transferred?");
           int amountMine = Integer.valueOf(input.nextLine());
           Block tempMine = chain.mine(amountMine);
           pen.println("Amount = " + amountMine + ", nonce = " + tempMine.getNonce());
