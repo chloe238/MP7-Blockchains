@@ -135,6 +135,8 @@ public class Block {
     byte[] data;
     long test = -1;
     Hash hash;
+
+    // Loop through all possible nonce values until the valid one is found
     do {  
       test++;    
       data = calculateHash(this.blockNum, this.amount, this.prevHash, test);
@@ -142,6 +144,7 @@ public class Block {
     } while(!hash.isValid());
 
     this.thisHash = hash;
+    // return the valid nonce
     return test;
-  } //calculateNonce()
+  } // calculateNonce()
 } // Block

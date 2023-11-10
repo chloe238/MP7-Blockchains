@@ -8,14 +8,13 @@ import java.util.Scanner;
  * @author Chloe Kelly
  * @author Lydia Ye
  */
-
 public class BlockChainDriver {
   public static void main(String[] args) throws NoSuchAlgorithmException {
     //Make sure the command argument is valid
     if (args.length != 1){
       System.err.println("Invalid number of command line arguments.");
       System.exit(1);
-    } //if
+    } // if
     int initAmount = 0;
     try{
       initAmount = Integer.valueOf(args[0]);
@@ -32,7 +31,7 @@ public class BlockChainDriver {
     PrintWriter pen = new PrintWriter(System.out, true);
     String command = "";
 
-    while (!command.equals("quit")){
+    while (!command.equals("quit")) {
       //Print chain
       pen.println(chain.toString());
       //Prompts
@@ -94,12 +93,12 @@ public class BlockChainDriver {
 
         default:
           pen.println("Invalid command. Type \"help\" for a list of commands.");
-      } //switch
+      } // switch
       pen.println();
-    } //while
+    } // while
 
     if (input != null){
       input.close();
-    } //if
-  } //main(String[])
-} //class BlockChainDriver()
+    } // if
+  } // main(String[])
+} // class BlockChainDriver()
